@@ -4,7 +4,7 @@
   (:require [clj-redis.client :as r])
   (:import java.util.UUID))
 
-(defn uuid [prefix]
+(defn session-key [prefix]
   (str prefix ":" (str (UUID/randomUUID))))
 
 (deftype RedisStore [db prefix expiration]
@@ -14,7 +14,7 @@
       (when-let [data (r/get db session-key)]
         (read-string data))))
   (write-session [_ session-key data]
-    (let [session-key (or session-key (uuid prefix))
+    (let [session-key (or session-key (session-key prefix))
           data-str (binding [*print-dup* true]
                      (print-str data))]
       (if expiration

@@ -17,7 +17,7 @@ Installation
 
 Add
 
-    [clj-redis-session "0.0.2"]
+    [clj-redis-session "0.2.0"]
 
 to `:dependencies` in your `project.clj`.
 
@@ -36,6 +36,16 @@ Usage
           ... other middlewares ...
           (wrap-session {:store (redis-store store)})
           ....))
+
+Want sessions to automatically expire?
+
+    # expire after 12 hours
+    (wrap-session your-app {:store (redis-store store {:expire-secs 3600*12})})
+
+You can also change the prefix (default to `session`) for the keys in
+redis:
+
+    (wrap-session your-app {:store (redis-store store {:prefix "i-am-prefix"})})
 
 License
 =======
