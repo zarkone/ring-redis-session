@@ -27,8 +27,10 @@ Usage
 `clj-redis-session` is a drop-in replacement for Ring native stores:
 
     (ns hello
-      (:use [clj-redis-session.core :only [redis-store]]
-            [clj-redis.client :only [redis])
+      (:use
+       ring.middleware.session
+       [clj-redis-session.core :only [redis-store]]
+       [clj-redis.client :only [redis])
 
     (def store (redis/init {:url "redis://127.0.0.1:6379"}))
     (def app
