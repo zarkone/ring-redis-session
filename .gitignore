@@ -1,6 +1,13 @@
+.DS_Store
+
+/target
+/lib
+/classes
+/checkouts
 pom.xml
-*jar
-/lib/
-/classes/
-.lein-failures
+*.jar
+*.class
 .lein-deps-sum
+.lein-failures
+.lein-plugins
+.lein-env

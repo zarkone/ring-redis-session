@@ -4,7 +4,7 @@
   (:require [clj-redis.client :as r])
   (:import java.util.UUID))
 
-(defn session-key [prefix]
+(defn new-session-key [prefix]
   (str prefix ":" (str (UUID/randomUUID))))
 
 (deftype RedisStore [db prefix expiration]
@@ -14,7 +14,7 @@
       (when-let [data (r/get db session-key)]
         (read-string data))))
   (write-session [_ session-key data]
-    (let [session-key (or session-key (session-key prefix))
+    (let [session-key (or session-key (new-session-key prefix))
           data-str (binding [*print-dup* true]
                      (print-str data))]
       (if expiration
@@ -27,6 +27,8 @@
 
 (defn redis-store
   "Creates a redis-backed session storage engine."
-  [db & {:keys [prefix expire-secs]
-         :or {prefix "session"}}]
-  (RedisStore. db prefix expire-secs))
+  ([db]
+     (redis-store db {}))
+  ([db {:keys [prefix expire-secs]
+        :or {prefix "session"}}]
+     (RedisStore. db prefix expire-secs)))
