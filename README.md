@@ -17,7 +17,7 @@ Installation
 
 Add
 
-    [clj-redis-session "0.3.0"]
+    [clj-redis-session "0.4.0"]
 
 to `:dependencies` in your `project.clj`.
 
@@ -32,11 +32,13 @@ Usage
        [clj-redis-session.core :only [redis-store]]
        [clj-redis.client :only [redis])
 
-    (def store (redis/init {:url "redis://127.0.0.1:6379"}))
+    (def STORE (atom nil))
+    (reset! STORE (redis/init {:url "redis://127.0.0.1:6379"}))
+
     (def app
       (-> ....
           ... other middlewares ...
-          (wrap-session {:store (redis-store store)})
+          (wrap-session {:store (redis-store STORE)})
           ....))
 
 Want sessions to automatically expire?

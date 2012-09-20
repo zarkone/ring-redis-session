@@ -11,18 +11,18 @@
   SessionStore
   (read-session [_ session-key]
     (when session-key
-      (when-let [data (r/get db session-key)]
+      (when-let [data (r/get @db session-key)]
         (read-string data))))
   (write-session [_ session-key data]
     (let [session-key (or session-key (new-session-key prefix))
           data-str (binding [*print-dup* true]
                      (print-str data))]
       (if expiration
-        (r/setex db session-key expiration data-str)
-        (r/set db session-key data-str))
+        (r/setex @db session-key expiration data-str)
+        (r/set @db session-key data-str))
       session-key))
   (delete-session [_ session-key]
-    (r/del db [session-key])
+    (r/del @db [session-key])
     nil))
 
 (defn redis-store
