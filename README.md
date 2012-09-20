@@ -17,7 +17,7 @@ Installation
 
 Add
 
-    [clj-redis-session "0.2.0"]
+    [clj-redis-session "0.3.0"]
 
 to `:dependencies` in your `project.clj`.
 
