@@ -3,7 +3,7 @@ What is clj-redis-session
 
 `clj-redis-session` uses redis as a Clojure/Ring's HTTP session
 storage engine. What makes it different is its support for
-hierarchical data, actually any *print-str*able clojure data.
+hierarchical data, actually any *print-str*able clojure data types.
 
 Why clj-redis-session
 =====================
@@ -17,39 +17,44 @@ Installation
 
 Add
 
-    [clj-redis-session "0.2.0"]
+    [clj-redis-session "1.0.0"]
 
 to `:dependencies` in your `project.clj`.
 
 Usage
 =====
 
-`clj-redis-session` is a drop-in replacement for Ring native stores:
+`clj-redis-session` is a drop-in replacement for Ring native session
+stores, it uses [Carmine](https://github.com/ptaoussanis/carmine) as
+its Redis client.
 
     (ns hello
       (:use [clj-redis-session.core :only [redis-store]]
-            [clj-redis.client :only [redis])
+            [taoensso.carmine :as car])
 
-    (def store (redis/init {:url "redis://127.0.0.1:6379"}))
+    ;; clj-redis-session use Carmine as its Redis client
+    (def redis-pool (car/make-conn-pool))
+    (def redis-spec (car/make-conn-spec))
+
     (def app
-      (-> ....
+      (-> routes
           ... other middlewares ...
-          (wrap-session {:store (redis-store store)})
+          (wrap-session {:store (redis-store redis-pool redis-spec)})
           ....))
 
 Want sessions to automatically expire?
 
     # expire after 12 hours
-    (wrap-session your-app {:store (redis-store store {:expire-secs 3600*12})})
+    (wrap-session your-app {:store (redis-store redis-pool redis-spec {:expire-secs 3600*12})})
 
 You can also change the prefix (default to `session`) for the keys in
 redis:
 
-    (wrap-session your-app {:store (redis-store store {:prefix "i-am-prefix"})})
+    (wrap-session your-app {:store (redis-store redis-pool redis-spec {:prefix "i-am-prefix"})})
 
 License
 =======
 
-Copyright (C) 2011 Wu Zhe <wu@madk.org>
+Copyright (C) 2013 Wu Zhe <wu@madk.org>
 
 Distributed under the Eclipse Public License, the same as Clojure.
