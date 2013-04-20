@@ -6,6 +6,7 @@
 /checkouts
 /native
 pom.xml
+pom.xml.asc
 *.jar
 *.class
 .lein-*
