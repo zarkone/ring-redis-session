@@ -4,7 +4,7 @@
   (:require [taoensso.carmine :as car])
   (:import java.util.UUID))
 
-(defn session-key [prefix]
+(defn new-session-key [prefix]
   (str prefix ":" (str (UUID/randomUUID))))
 
 (deftype RedisStore [redis-pool redis-spec prefix expiration]
@@ -14,7 +14,7 @@
       (when-let [data (car/with-conn redis-pool redis-spec (car/get session-key))]
         (read-string data))))
   (write-session [_ session-key data]
-    (let [session-key (or session-key (session-key prefix))
+    (let [session-key (or session-key (new-session-key prefix))
           data-str (binding [*print-dup* true]
                      (print-str data))]
       (if expiration
@@ -27,7 +27,8 @@
 
 (defn redis-store
   "Creates a redis-backed session storage engine."
-  [redis-pool redis-spec
-   & {:keys [prefix expire-secs]
-      :or {prefix "session"}}]
-  (RedisStore. redis-pool redis-spec prefix expire-secs))
+  ([redis-pool redis-spec]
+     (redis-store redis-pool redis-spec {}))
+  ([redis-pool redis-spec {:keys [prefix expire-secs]
+        :or {prefix "session"}}]
+     (RedisStore. redis-pool redis-spec prefix expire-secs)))
