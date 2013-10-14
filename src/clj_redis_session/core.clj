@@ -1,7 +1,7 @@
 (ns clj-redis-session.core
   "Redis session storage."
   (:use ring.middleware.session.store)
-  (:require [taoensso.carmine :as car :refer (wcar)])
+  (:require [taoensso.carmine :as car :refer [wcar]])
   (:import java.util.UUID))
 
 (defn new-session-key [prefix]
