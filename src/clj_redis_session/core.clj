@@ -1,34 +1,34 @@
 (ns clj-redis-session.core
   "Redis session storage."
   (:use ring.middleware.session.store)
-  (:require [taoensso.carmine :as car])
+  (:require [taoensso.carmine :as car :refer (wcar)])
   (:import java.util.UUID))
 
 (defn new-session-key [prefix]
   (str prefix ":" (str (UUID/randomUUID))))
 
-(deftype RedisStore [redis-pool redis-spec prefix expiration]
+(deftype RedisStore [redis-conn prefix expiration]
   SessionStore
   (read-session [_ session-key]
     (when session-key
-      (when-let [data (car/with-conn redis-pool redis-spec (car/get session-key))]
+      (when-let [data (wcar (car/get session-key))]
         (read-string data))))
   (write-session [_ session-key data]
     (let [session-key (or session-key (new-session-key prefix))
           data-str (binding [*print-dup* true]
                      (print-str data))]
       (if expiration
-        (car/with-conn redis-pool redis-spec (car/setex session-key expiration data-str))
-        (car/with-conn redis-pool redis-spec (car/set session-key data-str)))
+        (wcar (car/setex session-key expiration data-str))
+        (wcar (car/set session-key data-str)))
       session-key))
   (delete-session [_ session-key]
-    (car/with-conn redis-pool redis-spec (car/del session-key))
+    (wcar (car/del session-key))
     nil))
 
 (defn redis-store
   "Creates a redis-backed session storage engine."
-  ([redis-pool redis-spec]
-     (redis-store redis-pool redis-spec {}))
-  ([redis-pool redis-spec {:keys [prefix expire-secs]
-        :or {prefix "session"}}]
-     (RedisStore. redis-pool redis-spec prefix expire-secs)))
+  ([redis-conn]
+     (redis-store redis-conn {}))
+  ([redis-conn {:keys [prefix expire-secs]
+                :or {prefix "session"}}]
+     (RedisStore. redis-conn prefix expire-secs)))

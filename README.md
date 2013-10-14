@@ -31,29 +31,26 @@ stores. `clj-redis-session` uses
     (ns hello
       (:use
         ring.middleware.session
-        [clj-redis-session.core :only [redis-store]])
-      (:require
-        [taoensso.carmine :as car]))
+        [clj-redis-session.core :only [redis-store]]))
 
     ;; clj-redis-session use Carmine as its Redis client
-    (def redis-pool (car/make-conn-pool))
-    (def redis-spec (car/make-conn-spec))
+    (def redis-conn {:pool {<pool-opts>} :spec {<spec-opts>}})
 
     (def app
       (-> your-routes
           ... other middlewares ...
-          (wrap-session {:store (redis-store redis-pool redis-spec)})
+          (wrap-session {:store (redis-store redis-conn)})
           ....))
 
 Want sessions to automatically expire?
 
     # expire after 12 hours
-    (wrap-session your-app {:store (redis-store redis-pool redis-spec {:expire-secs (* 3600 12)})})
+    (wrap-session your-app {:store (redis-store redis-conn {:expire-secs (* 3600 12)})})
 
 You can also change the prefix (default to `session`) for the keys in
 redis:
 
-    (wrap-session your-app {:store (redis-store redis-pool redis-spec {:prefix "i-am-prefix"})})
+    (wrap-session your-app {:store (redis-store redis-conn {:prefix "i-am-prefix"})})
 
 License
 =======
