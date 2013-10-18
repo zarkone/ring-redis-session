@@ -11,18 +11,18 @@
   SessionStore
   (read-session [_ session-key]
     (when session-key
-      (when-let [data (wcar (car/get session-key))]
+      (when-let [data (wcar redis-conn (car/get session-key))]
         (read-string data))))
   (write-session [_ session-key data]
     (let [session-key (or session-key (new-session-key prefix))
           data-str (binding [*print-dup* true]
                      (print-str data))]
       (if expiration
-        (wcar (car/setex session-key expiration data-str))
-        (wcar (car/set session-key data-str)))
+        (wcar redis-conn (car/setex session-key expiration data-str))
+        (wcar redis-conn (car/set session-key data-str)))
       session-key))
   (delete-session [_ session-key]
-    (wcar (car/del session-key))
+    (wcar redis-conn (car/del session-key))
     nil))
 
 (defn redis-store
