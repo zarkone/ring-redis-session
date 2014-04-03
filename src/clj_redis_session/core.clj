@@ -7,11 +7,13 @@
 (defn new-session-key [prefix]
   (str prefix ":" (str (UUID/randomUUID))))
 
-(deftype RedisStore [redis-conn prefix expiration]
+(deftype RedisStore [redis-conn prefix expiration reset-on-read]
   SessionStore
   (read-session [_ session-key]
     (when session-key
       (when-let [data (wcar redis-conn (car/get session-key))]
+        (if (and expiration reset-on-read)
+          (wcar redis-conn (car/expire session-key expiration)))
         (read-string data))))
   (write-session [_ session-key data]
     (let [session-key (or session-key (new-session-key prefix))
@@ -29,6 +31,7 @@
   "Creates a redis-backed session storage engine."
   ([redis-conn]
      (redis-store redis-conn {}))
-  ([redis-conn {:keys [prefix expire-secs]
-                :or {prefix "session"}}]
-     (RedisStore. redis-conn prefix expire-secs)))
+  ([redis-conn {:keys [prefix expire-secs reset-on-read]
+                :or {prefix "session"
+                     reset-on-read false}}]
+     (RedisStore. redis-conn prefix expire-secs reset-on-read)))
