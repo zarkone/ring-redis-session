@@ -52,11 +52,10 @@ Want sessions to automatically expire?
 ```
 
 Extend session expiration time while reading the session
-```
+```clojure
 # everytime when session gets read, it will reset current session expiration time.
 (wrap-session your-app {:store (redis-store redis-conn {:expire-secs (* 3600 12)
                                                         :reset-on-read true})})
-
 ```
 
 You can also change the prefix (default to `session`) for the keys in
