@@ -47,7 +47,7 @@ First, require the session namespaces:
 ```clj
 (ns your-app
   (:require [ring.middleware.session :as ring-session]
-            [clj-redis-session.core :only [redis-store]]))
+            [clj-redis-session.core :refer [redis-store]]))
 ```
 
 Then define the Redis [connection options][redis conn opts] as you would when
