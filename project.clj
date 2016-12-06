@@ -1,4 +1,4 @@
-(defproject clj-redis-session "2.1.3"
+(defproject clojusc/clj-redis-session "2.1.3"
   :url "https://github.com/wuzhe/clj-redis-session"
   :description "Redis-backed Clojure/Ring session store"
   :dependencies [[org.clojure/clojure "1.5.0"]
