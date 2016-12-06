@@ -1,6 +1,9 @@
 clj-redis-session
 =================
 
+[![Build Status][travis-badge]][travis]
+
+
 What is it?
 -----------
 
@@ -13,7 +16,7 @@ Why?
 ----
 
 The reason I wrote `clj-redis-session` is that the only Redis-backed
-sesssion store I could find ([rrss](https://github.com/paraseba/rrss))
+sesssion store I could find ([rrss][rrss])
 doesn't support hierarchical data structures, e.g. lists, maps.
 
 
@@ -33,7 +36,7 @@ Usage
 
 `clj-redis-session` is a drop-in replacement for Ring native session
 stores. `clj-redis-session` uses
-[Carmine](https://github.com/ptaoussanis/carmine) as its Redis client.
+[Carmine][carmine] as its Redis client.
 ```clojure
 
 (ns hello
@@ -78,3 +81,9 @@ License
 Copyright (C) 2013 Zhe Wu <wu@madk.org>
 
 Distributed under the Eclipse Public License, the same as Clojure.
+
+
+[travis]: https://travis-ci.org/wuzhe/clj-redis-session
+[travis-badge]: https://travis-ci.org/wuzhe/clj-redis-session.png?branch=master
+[rrss]: https://github.com/paraseba/rrss
+[carmine]: https://github.com/ptaoussanis/carmine
