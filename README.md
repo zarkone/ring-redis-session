@@ -49,11 +49,15 @@ First, require the session namespaces:
             [clj-redis-session.core :only [redis-store]]))
 ```
 
-Then define the Redis connection as you would when using Carmine directly:
+Then define the Redis [connection options][redis conn opts] as you would when
+using Carmine directly. For example:
 
 ```clj
-(def conn {:pool {<pool-opts>}
-           :spec {<spec-opts>}})
+(def conn {:pool {}
+           :spec {:host "127.0.0.1"
+                  :port 6379
+                  :password "s3kr1t"
+                  :timeout-ms 5000}})
 ```
 
 At this point, you'll be ready to use `clj-redis-session` to manage your
@@ -70,14 +74,13 @@ application sessions:
 Automatically expire sessions after 12 hours:
 
 ```clj
-# expire after 12 hours
 (wrap-session your-app {:store (redis-store conn {:expire-secs (* 3600 12)})})
 ```
 
-Extend session expiration time while reading the session:
+Automatically extend the session expiration time whenever the session data is
+read:
 
 ```clj
-# everytime when session gets read, it will reset current session expiration time.
 (wrap-session your-app {:store (redis-store conn {:expire-secs (* 3600 12)
                                                   :reset-on-read true})})
 ```
@@ -104,3 +107,4 @@ Distributed under the Eclipse Public License, the same as Clojure.
 [logo-large]: resources/images/redis-logo.png
 [rrss]: https://github.com/paraseba/rrss
 [carmine]: https://github.com/ptaoussanis/carmine
+[redis conn opts]: https://github.com/ptaoussanis/carmine/blob/master/src/taoensso/carmine.clj#L26
