@@ -38,50 +38,62 @@ Usage
 -----
 
 `clj-redis-session` is a drop-in replacement for Ring native session
-stores. `clj-redis-session` uses
-[Carmine][carmine] as its Redis client.
-```clojure
+stores. `clj-redis-session` uses [Carmine][carmine] as its Redis client.
 
-(ns hello
-  (:use
-    ring.middleware.session
-    [clj-redis-session.core :only [redis-store]]))
 
-;; clj-redis-session use Carmine as its Redis client
-(def redis-conn {:pool {<pool-opts>} :spec {<spec-opts>}})
+First, require the session namespaces:
 
-(def app
+```clj
+(ns your-app
+  (:require [ring.middleware.session :as ring-session]
+            [clj-redis-session.core :only [redis-store]]))
+```
+
+Then define the Redis connection as you would when using Carmine directly:
+
+```clj
+(def conn {:pool {<pool-opts>}
+           :spec {<spec-opts>}})
+```
+
+At this point, you'll be ready to use `clj-redis-session` to manage your
+application sessions:
+
+```clj
+(def your-app
   (-> your-routes
-      ... other middlewares ...
-      (wrap-session {:store (redis-store redis-conn)})
-      ....))
+      (... other middlewares ...)
+      (ring-session/wrap-session {:store (redis-store conn)})
+      (...)))
 ```
-Want sessions to automatically expire?
-```clojure
 
+Automatically expire sessions after 12 hours:
+
+```clj
 # expire after 12 hours
-(wrap-session your-app {:store (redis-store redis-conn {:expire-secs (* 3600 12)})})
+(wrap-session your-app {:store (redis-store conn {:expire-secs (* 3600 12)})})
 ```
 
-Extend session expiration time while reading the session
-```clojure
+Extend session expiration time while reading the session:
+
+```clj
 # everytime when session gets read, it will reset current session expiration time.
-(wrap-session your-app {:store (redis-store redis-conn {:expire-secs (* 3600 12)
-                                                        :reset-on-read true})})
+(wrap-session your-app {:store (redis-store conn {:expire-secs (* 3600 12)
+                                                  :reset-on-read true})})
 ```
 
-You can also change the prefix (default to `session`) for the keys in
-redis:
-```clojure
+You can also change the default prefix, `session`, for the keys in Redis to
+something else:
 
-(wrap-session your-app {:store (redis-store redis-conn {:prefix "i-am-prefix"})})
+```clj
+(wrap-session your-app {:store (redis-store conn {:prefix "your-app-prefix"})})
 ```
 
 
 License
 -------
 
-Copyright (C) 2013 Zhe Wu <wu@madk.org>
+Copyright © 2013 Zhe Wu <wu@madk.org>
 
 Distributed under the Eclipse Public License, the same as Clojure.
 
