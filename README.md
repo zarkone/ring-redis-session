@@ -3,6 +3,9 @@ clj-redis-session
 
 [![Build Status][travis-badge]][travis]
 
+*A Redis backed Clojure/Ring session store*
+
+[![Project Logo][logo]][logo-large]
 
 What is it?
 -----------
@@ -85,5 +88,7 @@ Distributed under the Eclipse Public License, the same as Clojure.
 
 [travis]: https://travis-ci.org/clojusc/clj-redis-session
 [travis-badge]: https://travis-ci.org/clojusc/clj-redis-session.png?branch=dev
+[logo]: resources/images/redis-logo-small.png
+[logo-large]: resources/images/redis-logo.png
 [rrss]: https://github.com/paraseba/rrss
 [carmine]: https://github.com/ptaoussanis/carmine
