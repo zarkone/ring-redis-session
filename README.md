@@ -83,7 +83,7 @@ Copyright (C) 2013 Zhe Wu <wu@madk.org>
 Distributed under the Eclipse Public License, the same as Clojure.
 
 
-[travis]: https://travis-ci.org/wuzhe/clj-redis-session
-[travis-badge]: https://travis-ci.org/wuzhe/clj-redis-session.png?branch=master
+[travis]: https://travis-ci.org/clojusc/clj-redis-session
+[travis-badge]: https://travis-ci.org/clojusc/clj-redis-session.png?branch=dev
 [rrss]: https://github.com/paraseba/rrss
 [carmine]: https://github.com/ptaoussanis/carmine
