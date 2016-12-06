@@ -1,0 +1,10 @@
+language: clojure
+lein: 2.7.1
+script:
+  - lein deps
+  - lein compile
+  - lein uberjar
+jdk:
+  - oraclejdk8
+  - oraclejdk7
+  - openjdk7
