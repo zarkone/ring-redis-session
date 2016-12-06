@@ -23,7 +23,7 @@ Installation
 Add
 ```clojure
 
-[clj-redis-session "2.1.3"]
+[clojusc/clj-redis-session "2.1.4-SNAPSHOT"]
 ```
 to `:dependencies` in your `project.clj`.
 
