@@ -3,4 +3,4 @@
   :description "Redis-backed Clojure/Ring session store"
   :dependencies [[org.clojure/clojure "1.5.0"]
                  [ring/ring-core "1.2.2"]
-                 [com.taoensso/carmine "2.6.0"]])
+                 [com.taoensso/carmine "2.15.0"]])
