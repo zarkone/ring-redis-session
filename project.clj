@@ -1,5 +1,5 @@
 (defproject clojusc/clj-redis-session "3.0.0-SNAPSHOT"
-  :url "https://github.com/wuzhe/clj-redis-session"
+  :url "https://github.com/clojusc/clj-redis-session"
   :description "Redis-backed Clojure/Ring session store"
   :license
     {:name "Eclipse Public License"
