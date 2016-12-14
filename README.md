@@ -45,13 +45,13 @@ namespace for `clj-redis-session` has changed! Whereas before the
 following was used:
 
 ```clj
-clj-redis-session.core :refer [redis-store]
+clj-redis-session.core
 ```
 
 This now needs to be updated to:
 
 ```clj
-clojusc.redis.session :refer [redis-store]
+clojusc.redis.session
 ```
 
 
