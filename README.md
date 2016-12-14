@@ -19,9 +19,9 @@ hierarchical data, actually any `*print-str*`able clojure data types.
 Why?
 ----
 
-The reason I wrote `clj-redis-session` is that the only Redis-backed
-sesssion store I could find ([rrss][rrss])
-doesn't support hierarchical data structures, e.g. lists, maps.
+The reason `clj-redis-session` was written was that there was a need for
+a Redis-backed session store that supported hierarchical data structures,
+and the only Redis session store available ([rrss][rrss]) ... didn't.
 
 
 Installation
@@ -38,6 +38,23 @@ to `:dependencies` in your `project.clj`.
 Usage
 -----
 
+**¡Important!**
+
+As of version 3.0.0 (as maintained in the Clojusc org), the
+namespaces for `clj-redis-session` have changed! Whereas before the
+following was used:
+
+```clj
+clj-redis-session.core :refer [redis-store]
+```
+
+This now needs to be updated to:
+
+```clj
+clojusc.redis.session :refer [redis-store]
+```
+
+
 `clj-redis-session` is a drop-in replacement for Ring native session
 stores. `clj-redis-session` uses [Carmine][carmine] as its Redis client.
 
@@ -47,7 +64,7 @@ First, require the session namespaces:
 ```clj
 (ns your-app
   (:require [ring.middleware.session :as ring-session]
-            [clj-redis-session.core :refer [redis-store]]))
+            [clojusc.redis.session :refer [redis-store]]))
 ```
 
 Then define the Redis [connection options][redis conn opts] as you would when
