@@ -89,6 +89,11 @@ application sessions:
       (...)))
 ```
 
+If you are using `friend` for auth/authz, you will want to thread your security
+wrappers first, and then the session. If you are using `ring-defaults` to wrap
+for the site defaults, you'll want to thread the session wrapper before the
+defaults are set.
+
 Automatically expire sessions after 12 hours:
 
 ```clj
