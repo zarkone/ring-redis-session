@@ -1,5 +1,5 @@
-(ns clojusc.redis.session-test
-  (:use [clojusc.redis.session])
+(ns ring.redis.session-test
+  (:use [ring.redis.session])
   (:use [clojure.test]))
 
 (deftest replace-me ;; FIXME: write

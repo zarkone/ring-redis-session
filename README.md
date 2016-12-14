@@ -51,7 +51,7 @@ clj-redis-session.core
 This now needs to be updated to:
 
 ```clj
-clojusc.redis.session
+ring.redis.session
 ```
 
 
@@ -64,7 +64,7 @@ First, require the session namespaces:
 ```clj
 (ns your-app
   (:require [ring.middleware.session :as ring-session]
-            [clojusc.redis.session :refer [redis-store]]))
+            [ring.redis.session :refer [redis-store]]))
 ```
 
 Then define the Redis [connection options][redis conn opts] as you would when

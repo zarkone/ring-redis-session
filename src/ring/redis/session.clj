@@ -1,4 +1,4 @@
-(ns clojusc.redis.session
+(ns ring.redis.session
   "Redis session storage."
   (:require [clojure.tools.logging :as log]
             [ring.middleware.session.store :as api]
