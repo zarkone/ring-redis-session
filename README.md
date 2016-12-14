@@ -41,7 +41,7 @@ Usage
 **¡Important!**
 
 As of version 3.0.0 (as maintained in the Clojusc org), the
-namespaces for `clj-redis-session` have changed! Whereas before the
+namespace for `clj-redis-session` has changed! Whereas before the
 following was used:
 
 ```clj
