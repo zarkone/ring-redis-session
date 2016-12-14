@@ -121,6 +121,8 @@ License
 
 Copyright © 2013 Zhe Wu <wu@madk.org>
 
+Copyright © 2016 Clojure-Aided Enrichment Center 
+
 Distributed under the Eclipse Public License, the same as Clojure.
 
 
