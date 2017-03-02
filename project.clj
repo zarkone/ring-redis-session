@@ -1,8 +1,11 @@
-(defproject clojusc/clj-redis-session "2.1.4"
-  :url "https://github.com/wuzhe/clj-redis-session"
+(defproject clojusc/clj-redis-session "3.0.0"
+  :url "https://github.com/clojusc/clj-redis-session"
   :description "Redis-backed Clojure/Ring session store"
-  :dependencies [[com.taoensso/carmine "2.15.0"]
-                 [org.clojure/clojure "1.5.0"]
+  :license
+    {:name "Eclipse Public License"
+     :url "https://opensource.org/licenses/EPL-1.0"}
+  :dependencies [[com.taoensso/carmine "2.15.1"]
+                 [org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.logging "0.3.1"]
                  [ring/ring-core "1.6.0-beta6"]]
   :profiles {
