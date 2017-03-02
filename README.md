@@ -2,10 +2,15 @@ clj-redis-session
 =================
 
 [![Build Status][travis-badge]][travis]
-
-*A Redis backed Clojure/Ring session store*
+[![Dependencies Status][deps-badge]][deps]
+[![Clojars Project][clojars-badge]][clojars]
+[![Tag][tag-badge]][tag]
+[![JDK version][jdk-v]](.travis.yml)
+[![Clojure version][clojure-v]](project.clj)
 
 [![Project Logo][logo]][logo-large]
+
+*A Redis backed Clojure/Ring session store*
 
 
 What is it?
@@ -109,3 +114,11 @@ Distributed under the Eclipse Public License, the same as Clojure.
 [rrss]: https://github.com/paraseba/rrss
 [carmine]: https://github.com/ptaoussanis/carmine
 [redis conn opts]: https://github.com/ptaoussanis/carmine/blob/master/src/taoensso/carmine.clj#L26
+[deps]: http://jarkeeper.com/clojusc/clj-redis-session
+[deps-badge]: http://jarkeeper.com/clojusc/clj-redis-session/status.svg
+[tag-badge]: https://img.shields.io/github/tag/clojusc/clj-redis-session.svg
+[tag]: https://github.com/clojusc/clj-redis-session/tags
+[clojure-v]: https://img.shields.io/badge/clojure-1.8.0-blue.svg
+[jdk-v]: https://img.shields.io/badge/jdk-1.7+-blue.svg
+[clojars]: https://clojars.org/clojusc/clj-redis-session
+[clojars-badge]: https://img.shields.io/clojars/v/clojusc/clj-redis-session.svg
