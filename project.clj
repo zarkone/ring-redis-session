@@ -1,4 +1,4 @@
-(defproject clojusc/clj-redis-session "3.0.0"
+(defproject clojusc/clj-redis-session "3.1.0-SNAPSHOT"
   :url "https://github.com/clojusc/clj-redis-session"
   :description "Redis-backed Clojure/Ring session store"
   :license
