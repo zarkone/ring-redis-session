@@ -4,8 +4,8 @@
   :license
     {:name "Eclipse Public License"
      :url "https://opensource.org/licenses/EPL-1.0"}
-  :dependencies [[com.taoensso/carmine "2.15.0"]
-                 [org.clojure/clojure "1.5.0"]
+  :dependencies [[com.taoensso/carmine "2.15.1"]
+                 [org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.logging "0.3.1"]
                  [ring/ring-core "1.6.0-beta6"]]
   :profiles {
