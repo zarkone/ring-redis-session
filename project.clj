@@ -11,6 +11,18 @@
   :profiles {
     :uber {
       :aot :all}
+    :dev {
+      :source-paths ["dev-resources/src"]
+      :repl-options {
+          :init-ns ring.redis.session.dev}}
+    :test {
+      :exclusions [org.clojure/clojure]
+      :plugins
+        [[lein-ancient "0.6.10"]
+         [jonase/eastwood "0.2.3"]
+         [lein-bikeshed "0.4.1"]
+         [lein-kibit "0.1.3"]
+         [venantius/yagni "0.1.4"]]}
     :1.5 {
       :dependencies [
         [org.clojure/clojure "1.5.0"]
@@ -24,4 +36,19 @@
     :1.8 {
       :dependencies [[org.clojure/clojure "1.8.0"]]}
     :1.9 {
-      :dependencies [[org.clojure/clojure "1.9.0-alpha14"]]}})
+      :dependencies [[org.clojure/clojure "1.9.0-alpha14"]]}
+    :docs {
+      :dependencies [[codox-theme-rdash "0.1.1"]]
+      :plugins [[lein-codox "0.10.3"]
+                [lein-simpleton "1.3.0"]]
+      :codox {
+        :project {
+          :name "ring-redis-session"
+          :description "Redis-backed Clojure/Ring session store"}
+        :namespaces [#"^ring.redis.session\.(?!dev)"]
+        :themes [:rdash]
+        :output-path "docs/current"
+        :doc-paths ["resources/docs"]
+        :metadata {
+          :doc/format :markdown
+          :doc "Documentation forthcoming"}}}})
