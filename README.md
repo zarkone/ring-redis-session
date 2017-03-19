@@ -1,5 +1,5 @@
-clj-redis-session
-=================
+ring-redis-session
+==================
 
 [![Build Status][travis-badge]][travis]
 [![Dependencies Status][deps-badge]][deps]
@@ -16,7 +16,7 @@ clj-redis-session
 What is it?
 -----------
 
-`clj-redis-session` uses redis as a Clojure/Ring's HTTP session
+`ring-redis-session` uses redis as a Clojure/Ring's HTTP session
 storage engine. What makes it different is its support for
 hierarchical data, actually any `*print-str*`able clojure data types.
 
@@ -24,17 +24,30 @@ hierarchical data, actually any `*print-str*`able clojure data types.
 Why?
 ----
 
-The reason `clj-redis-session` was written was that there was a need for
+The reason `ring-redis-session` was written was that there was a need for
 a Redis-backed session store that supported hierarchical data structures,
 and the only Redis session store available ([rrss][rrss]) ... didn't.
 
+
+Important Changes
+-----------------
+
+* **v3.1.0** - This release has changed the repo name, project name, and release
+  name from `clj-redis-session` to `ring-redis-session` (thanks @plexus for the
+  great suggestion!)
+
+* **v3.0.0** - This release introduces a breaking change in the API. Whereas
+  prior to this release on used `ring-redis-session.core`, one now has to use
+  `ring.redis.session`. If this is a problem for your project, simply ensure
+  that you depend upon a version prior to the v3.0.0 release -- all of which
+  uphold the old API.
 
 Installation
 ------------
 
 Add
 ```clojure
-[clojusc/clj-redis-session "3.1.0"]
+[clojusc/ring-redis-session "3.1.0"]
 ```
 to `:dependencies` in your `project.clj`.
 
@@ -42,25 +55,8 @@ to `:dependencies` in your `project.clj`.
 Usage
 -----
 
-**¡Important!**
-
-As of version 3.0.0 (as maintained in the Clojusc org), the
-namespace for `clj-redis-session` has changed! Whereas before the
-following was used:
-
-```clj
-clj-redis-session.core
-```
-
-This now needs to be updated to:
-
-```clj
-ring.redis.session
-```
-
-
-`clj-redis-session` is a drop-in replacement for Ring native session
-stores. `clj-redis-session` uses [Carmine][carmine] as its Redis client.
+`ring-redis-session` is a drop-in replacement for Ring native session
+stores. `ring-redis-session` uses [Carmine][carmine] as its Redis client.
 
 
 First, require the session namespaces:
@@ -82,7 +78,7 @@ using Carmine directly. For example:
                   :timeout-ms 5000}})
 ```
 
-At this point, you'll be ready to use `clj-redis-session` to manage your
+At this point, you'll be ready to use `ring-redis-session` to manage your
 application sessions:
 
 ```clj
@@ -130,18 +126,18 @@ Copyright © 2016-2017 Clojure-Aided Enrichment Center
 Distributed under the Eclipse Public License, the same as Clojure.
 
 
-[travis]: https://travis-ci.org/clojusc/clj-redis-session
-[travis-badge]: https://travis-ci.org/clojusc/clj-redis-session.png?branch=dev
+[travis]: https://travis-ci.org/clojusc/ring-redis-session
+[travis-badge]: https://travis-ci.org/clojusc/ring-redis-session.png?branch=dev
 [logo]: resources/images/redis-logo-small.png
 [logo-large]: resources/images/redis-logo.png
 [rrss]: https://github.com/paraseba/rrss
 [carmine]: https://github.com/ptaoussanis/carmine
 [redis conn opts]: https://github.com/ptaoussanis/carmine/blob/master/src/taoensso/carmine.clj#L26
-[deps]: http://jarkeeper.com/clojusc/clj-redis-session
-[deps-badge]: http://jarkeeper.com/clojusc/clj-redis-session/status.svg
-[tag-badge]: https://img.shields.io/github/tag/clojusc/clj-redis-session.svg
-[tag]: https://github.com/clojusc/clj-redis-session/tags
+[deps]: http://jarkeeper.com/clojusc/ring-redis-session
+[deps-badge]: http://jarkeeper.com/clojusc/ring-redis-session/status.svg
+[tag-badge]: https://img.shields.io/github/tag/clojusc/ring-redis-session.svg
+[tag]: https://github.com/clojusc/ring-redis-session/tags
 [clojure-v]: https://img.shields.io/badge/clojure-1.8.0-blue.svg
 [jdk-v]: https://img.shields.io/badge/jdk-1.7+-blue.svg
-[clojars]: https://clojars.org/clojusc/clj-redis-session
-[clojars-badge]: https://img.shields.io/clojars/v/clojusc/clj-redis-session.svg
+[clojars]: https://clojars.org/clojusc/ring-redis-session
+[clojars-badge]: https://img.shields.io/clojars/v/clojusc/ring-redis-session.svg
