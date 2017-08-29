@@ -55,7 +55,7 @@
         :project {
           :name "ring-redis-session"
           :description "Redis-backed Clojure/Ring session store"}
-        :namespaces [#"^ring.redis.session\.(?!dev)"]
+        :namespaces [#"^ring.redis.session.*"]
         :themes [:rdash]
         :output-path "docs/current"
         :doc-paths ["resources/docs"]

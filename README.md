@@ -42,6 +42,7 @@ Important Changes
   that you depend upon a version prior to the v3.0.0 release -- all of which
   uphold the old API.
 
+
 Installation
 ------------
 
@@ -54,6 +55,8 @@ to `:dependencies` in your `project.clj`.
 
 Usage
 -----
+
+If you need it, documentation is [here][docs].
 
 `ring-redis-session` is a drop-in replacement for Ring native session
 stores. `ring-redis-session` uses [Carmine][carmine] as its Redis client.
@@ -141,3 +144,4 @@ Distributed under the Eclipse Public License, the same as Clojure.
 [jdk-v]: https://img.shields.io/badge/jdk-1.7+-blue.svg
 [clojars]: https://clojars.org/clojusc/ring-redis-session
 [clojars-badge]: https://img.shields.io/clojars/v/clojusc/ring-redis-session.svg
+[docs]: https://clojusc.github.io/ring-redis-session/current/
