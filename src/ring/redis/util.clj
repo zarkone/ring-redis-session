@@ -10,6 +10,7 @@
   "A pretty-print function suitable for use with
   `clojure.tools.logging` functions."
   [& args]
-  (str "\n"
-    (with-out-str
-      (apply pprint/pprint args))))
+  (->> args
+       (apply pprint/pprint)
+       (with-out-str)
+       (str "\n")))
