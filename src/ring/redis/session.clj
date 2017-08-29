@@ -2,7 +2,7 @@
   "Redis session storage."
   (:require [clojure.tools.logging :as log]
             [ring.middleware.session.store :as api]
-            [ring.redis.util :as util]
+            [ring.redis.session.util :as util]
             [taoensso.carmine :as redis]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

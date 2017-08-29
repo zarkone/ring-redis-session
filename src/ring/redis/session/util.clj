@@ -1,4 +1,4 @@
-(ns ring.redis.util
+(ns ring.redis.session.util
   "Redis session storage."
   (:require [clojure.pprint :as pprint])
   (:import java.util.UUID))

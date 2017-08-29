@@ -6,7 +6,7 @@
             [clojure.string :as string]
             [clojure.walk :refer [macroexpand-all]]
             [ring.redis.session :refer [redis-store]]
-            [ring.redis.util :as util]
+            [ring.redis.session.util :as util]
             [taoensso.carmine :as car :refer [wcar]]))
 
 (defn make-session-store
