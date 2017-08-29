@@ -64,9 +64,9 @@
 (defn redis-store
   "Creates a redis-backed session storage engine."
   ([redis-conn]
-     (redis-store redis-conn {}))
+    (redis-store redis-conn {}))
   ([redis-conn {:keys [prefix expire-secs reset-on-read]
                 :or {prefix "session"
                      reset-on-read false}}]
-     (log/debug "Creating Redis store ...")
-     (->RedisStore redis-conn prefix expire-secs reset-on-read)))
+    (log/debug "Creating Redis store ...")
+    (->RedisStore redis-conn prefix expire-secs reset-on-read)))
