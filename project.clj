@@ -5,10 +5,10 @@
     {:name "Eclipse Public License"
      :url "https://opensource.org/licenses/EPL-1.0"}
   :dependencies [
-    [com.taoensso/carmine "2.15.1"]
+    [com.taoensso/carmine "2.16.0"]
     [org.clojure/clojure "1.8.0"]
-    [org.clojure/tools.logging "0.3.1"]
-    [ring/ring-core "1.6.0-beta6"]]
+    [org.clojure/tools.logging "0.4.0"]
+    [ring/ring-core "1.6.2"]]
   :profiles {
     :uber {
       :aot :all}
@@ -47,7 +47,7 @@
     :docs {
       :exclusions [org.clojure/clojure]
       :dependencies [
-        [codox-theme-rdash "0.1.1"]]
+        [codox-theme-rdash "0.1.2"]]
       :plugins [
         [lein-codox "0.10.3"]
         [lein-simpleton "1.3.0"]]
@@ -64,7 +64,7 @@
           :doc "Documentation forthcoming"}}}}
   :aliases {
     "check-deps" [
-      "with-profile" "+test" "ancient" "check" ":all"]
+      "with-profile" "+test" "ancient" "check" "all"]
     "kibit" [
       "with-profile" "+test" "do"
         ["shell" "echo" "== Kibit =="]
