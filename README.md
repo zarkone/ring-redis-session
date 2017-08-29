@@ -48,7 +48,7 @@ Installation
 
 Add
 ```clojure
-[clojusc/ring-redis-session "3.2.0-SNAPSHOT"]
+[clojusc/ring-redis-session "3.2.0"]
 ```
 to `:dependencies` in your `project.clj`.
 
