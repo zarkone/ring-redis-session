@@ -6,9 +6,11 @@
             [clojure.string :as string]
             [clojure.walk :refer [macroexpand-all]]
             [ring.redis.session :refer [redis-store]]
+            [ring.redis.util :as util]
             [taoensso.carmine :as car :refer [wcar]]))
 
 (defn make-session-store
+  "Provide some sane default for local dev."
   ([]
     (make-session-store
       {:pool {}
