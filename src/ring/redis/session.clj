@@ -17,25 +17,23 @@
       (log/debug "In read-session ...")
       (log/debug "\tsession-key:" session-key)
       (when-let [data (redis/wcar conn (redis/get session-key))]
-        (if (and (:expiration this) (:reset-on-read this))
+        (when (and (:expiration this) (:reset-on-read this))
           (redis/wcar conn (redis/expire session-key (:expiration this))))
-        (read-string data)))))
+        data))))
 
 (defn write-redis-session
   "Write a session to a Redis store."
   [this old-session-key data]
   (let [conn (:redis-conn this)
         session-key (or old-session-key (util/new-session-key (:prefix this)))
-        data-str (binding [*print-dup* true]
-                   (print-str data))
         expiri (:expiration this)]
     (log/debug "In write-redis-session ...")
     (log/debug "\tsession-key:" session-key)
     (log/debug "\tdata:" (util/log-pprint data))
-    (log/debug "\tdata-str:" data-str)
+    (log/debug "\tdata-str:" data)
     (if expiri
-      (redis/wcar conn (redis/setex session-key expiri data-str))
-      (redis/wcar conn (redis/set session-key data-str)))
+      (redis/wcar conn (redis/setex session-key expiri data))
+      (redis/wcar conn (redis/set session-key data)))
     session-key))
 
 (defn delete-redis-session

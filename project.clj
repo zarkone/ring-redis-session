@@ -1,4 +1,4 @@
-(defproject clojusc/ring-redis-session "3.2.0"
+(defproject clojusc/ring-redis-session "3.3.0-SNAPSHOT"
   :url "https://github.com/clojusc/ring-redis-session"
   :description "Redis-backed Clojure/Ring session store"
   :license
@@ -43,7 +43,7 @@
         [org.clojure/clojure "1.8.0"]]}
     :1.9 {
       :dependencies [
-        [org.clojure/clojure "1.9.0-alpha14"]]}
+        [org.clojure/clojure "1.9.0"]]}
     :docs {
       :exclusions [org.clojure/clojure]
       :dependencies [
