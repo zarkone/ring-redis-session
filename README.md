@@ -118,6 +118,40 @@ something else:
 (wrap-session your-app {:store (redis-store conn {:prefix "your-app-prefix"})})
 ```
 
+Difference from `clojusc/ring-redis-session`
+--------------------------------------------
+
+* By default, data serialization now happen with default for
+  `com.taoensso/carmine` `nippy` lib because original serialization
+  method was based on `eval` read macro `#=` which is deprecated at
+  the moment and trashed out from clojurescript.
+
+* Added `read-handler`, `:write-handler` options to constructor option
+  so it is possible to change store format. For example, in my system
+  I have two different servers, `nodejs` based server for server-side
+  rendering and clojure `ring` server for API. I have to share session
+  somehow between them. I decided to use transit, so on API side I
+  configure session redis store like this:
+
+```clojure
+  (defn to-str [obj]
+    (let [string-writer  (ByteArrayOutputStream.)
+          transit-writer (transit/writer string-writer :json)]
+      (transit/write transit-writer obj)
+      (.toString string-writer)))
+
+  (defn from-str [str]
+    (let [string-reader  (ByteArrayInputStream. (.getBytes str))
+          transit-reader (transit/reader string-reader :json)]
+      (transit/read transit-reader)))
+
+  ...
+
+  (session/wrap-session handler {:store (redis-store redis-conn
+                                         {:read-handler #(some-> % from-str)
+                                          :write-handler #(some-> % to-str)})})
+```
+
 
 License
 -------
@@ -125,6 +159,8 @@ License
 Copyright © 2013 Zhe Wu <wu@madk.org>
 
 Copyright © 2016-2017 Clojure-Aided Enrichment Center
+
+Copyright © 2018 Anatoly Smolyaninov <zarkone@ya.ru>
 
 Distributed under the Eclipse Public License, the same as Clojure.
 
