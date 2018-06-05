@@ -1,4 +1,4 @@
-(defproject clojusc/ring-redis-session "3.3.0-SNAPSHOT"
+(defproject org.clojars.zarkone/ring-redis-session "3.3.0"
   :url "https://github.com/clojusc/ring-redis-session"
   :description "Redis-backed Clojure/Ring session store"
   :license
