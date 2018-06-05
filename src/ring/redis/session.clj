@@ -17,9 +17,10 @@
       (log/debug "In read-session ...")
       (log/debug "\tsession-key:" session-key)
       (when-let [data (redis/wcar conn (redis/get session-key))]
-        (when (and (:expiration this) (:reset-on-read this))
-          (redis/wcar conn (redis/expire session-key (:expiration this))))
-        data))))
+        (let [read-handler (:read-handler this)]
+          (when (and (:expiration this) (:reset-on-read this))
+            (redis/wcar conn (redis/expire session-key (:expiration this))))
+          (read-handler data))))))
 
 (defn write-redis-session
   "Write a session to a Redis store."
@@ -31,9 +32,10 @@
     (log/debug "\tsession-key:" session-key)
     (log/debug "\tdata:" (util/log-pprint data))
     (log/debug "\tdata-str:" data)
-    (if expiri
-      (redis/wcar conn (redis/setex session-key expiri data))
-      (redis/wcar conn (redis/set session-key data)))
+    (let [write-handler (:write-handler this)]
+      (if expiri
+        (redis/wcar conn (redis/setex session-key expiri (write-handler data)))
+        (redis/wcar conn (redis/set session-key (write-handler data)))))
     session-key))
 
 (defn delete-redis-session
@@ -46,7 +48,7 @@
 ;;;   Protocol Implementation   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defrecord RedisStore [redis-conn prefix expiration reset-on-read])
+(defrecord RedisStore [redis-conn prefix expiration reset-on-read read-handler write-handler])
 
 (def store-behaviour {
   :read-session read-redis-session
@@ -63,8 +65,10 @@
   "Creates a redis-backed session storage engine."
   ([redis-conn]
     (redis-store redis-conn {}))
-  ([redis-conn {:keys [prefix expire-secs reset-on-read]
+  ([redis-conn {:keys [prefix expire-secs reset-on-read read-handler write-handler]
                 :or {prefix "session"
+                     read-handler identity
+                     write-handler identity
                      reset-on-read false}}]
     (log/debug "Creating Redis store ...")
-    (->RedisStore redis-conn prefix expire-secs reset-on-read)))
+    (->RedisStore redis-conn prefix expire-secs reset-on-read read-handler write-handler)))
