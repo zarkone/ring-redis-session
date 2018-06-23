@@ -32,6 +32,16 @@ and the only Redis session store available ([rrss][rrss]) ... didn't.
 Important Changes
 -----------------
 
+* **3.3.0-SNAPSHOT**
+  - Data serialization now happens with default for
+    `com.taoensso/carmine` `nippy` library because original
+    serialization method was based on deprecated `eval` read macro `#=`;
+
+  - `read-handler` and `:write-handler` options added to constructor
+    which can be used to define custom data serialization format. See example in
+    [Customize data serialization format](#customize-data-serialization-format) section.
+
+
 * **v3.1.0** - This release has changed the repo name, project name, and release
   name from `clj-redis-session` to `ring-redis-session` (thanks @plexus for the
   great suggestion!)
@@ -118,20 +128,13 @@ something else:
 (wrap-session your-app {:store (redis-store conn {:prefix "your-app-prefix"})})
 ```
 
-Difference from `clojusc/ring-redis-session`
---------------------------------------------
+## Customize data serialization format
 
-* By default, data serialization now happen with default for
-  `com.taoensso/carmine` `nippy` lib because original serialization
-  method was based on `eval` read macro `#=` which is deprecated at
-  the moment and trashed out from clojurescript.
+The format of how data will be kept in Redis storage could be defined
+with `:read-handler`, `:write-handler` functions passed to
+constructor.
 
-* Added `read-handler`, `:write-handler` options to constructor option
-  so it is possible to change store format. For example, in my system
-  I have two different servers, `nodejs` based server for server-side
-  rendering and clojure `ring` server for API. I have to share session
-  somehow between them. I decided to use transit, so on API side I
-  configure session redis store like this:
+This example shows how to set handlers to store data in `transit` format:
 
 ```clojure
   (defn to-str [obj]
@@ -159,8 +162,6 @@ License
 Copyright © 2013 Zhe Wu <wu@madk.org>
 
 Copyright © 2016-2017 Clojure-Aided Enrichment Center
-
-Copyright © 2018 Anatoly Smolyaninov <zarkone@ya.ru>
 
 Distributed under the Eclipse Public License, the same as Clojure.
 
