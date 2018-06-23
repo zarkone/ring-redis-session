@@ -31,7 +31,6 @@
     (log/debug "In write-redis-session ...")
     (log/debug "\tsession-key:" session-key)
     (log/debug "\tdata:" (util/log-pprint data))
-    (log/debug "\tdata-str:" data)
     (let [write-handler (:write-handler this)]
       (if expiri
         (redis/wcar conn (redis/setex session-key expiri (write-handler data)))
